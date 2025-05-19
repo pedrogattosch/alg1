@@ -27,6 +27,22 @@ char *certificado(Pilha *p, char *s){
     return mensagem;
 }
 
+char *departamento(Pilha *p, Fila *f, int recebidos, int repassados){
+    if (recebidos == 0 || pilha_vazia(p)){
+        char *mensagem = malloc(MAX_CHAR * sizeof(char));
+        snprintf(mensagem, MAX_CHAR, "%d certificados repassados\n", repassados);
+        return mensagem;
+    }
+
+    Certificado *cert = popPilha(p);
+    if (cert != NULL){
+        pushFila(f, cert);
+        repassados++;
+    }
+
+    return departamento(p, f, recebidos - 1, repassados);
+}
+
 int main(){
     Pilha *p = cria_pilha();
     Fila *f = cria_fila();
@@ -40,7 +56,17 @@ int main(){
 		if(strcmp(comando, "certificado") == 0){
             char s[MAX_CHAR];
             scanf(" %[^\n]", s);
+
             char *mensagem = certificado(p, s);
+
+            printf("%s", mensagem);
+            free(mensagem);
+        } else if(strcmp(comando, "departamento") == 0){
+            int recebidos, repassados;
+            scanf("%d", &recebidos);
+
+            char *mensagem = departamento(p, f, recebidos, repassados);
+
             printf("%s", mensagem);
             free(mensagem);
 		} else if(strcmp(comando, "F") == 0){

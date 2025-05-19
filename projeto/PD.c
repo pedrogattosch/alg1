@@ -13,6 +13,7 @@ void pushPilha(Pilha *p, Certificado *cert){
     novo->info = cert;
     novo->prox = p->topo;
     p->topo = novo;
+    p->tamanho++;
 }
 
 Certificado *popPilha(Pilha *p){
@@ -20,8 +21,13 @@ Certificado *popPilha(Pilha *p){
     nodo *aux = p->topo->prox;
     free(p->topo);
     p->topo = aux;
+    p->tamanho--;
 
     return cert;
+}
+
+int pilha_vazia(Pilha *p){
+    return (p->topo == NULL) ? 1 : 0;
 }
 
 void libera_pilha(Pilha *p){

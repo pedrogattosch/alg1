@@ -21,6 +21,10 @@ Certificado *popFila(Fila *f){
     return cert;
 }
 
+int fila_vazia(Fila *f){
+    return (f->tamanho == 0) ? 1 : 0;
+}
+
 void libera_fila(Fila *f){
     free(f);
 }

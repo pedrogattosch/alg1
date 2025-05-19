@@ -13,11 +13,13 @@ typedef struct Nodo{
 typedef struct{
     Certificado *v[MAX];
     nodo *inicio, *fim;
+    int tamanho;
 } Fila;
 
 Fila *cria_fila();
 void pushFila(Fila *f, Certificado *cert);
 Certificado *popFila(Fila *f);
+int fila_vazia(Fila *f);
 void libera_fila(Fila *f);
 
 #endif

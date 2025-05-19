@@ -19,6 +19,8 @@ void pushFila(Fila *f, Certificado *cert){
 
     if (f->inicio==NULL)
         f->inicio = novo;
+    
+    f->tamanho++;   
 }
 
 Certificado *popFila(Fila *f){
@@ -29,8 +31,14 @@ Certificado *popFila(Fila *f){
         f->fim = NULL;
         free(f->inicio);
         f->inicio = aux;
+    
+    f->tamanho--;
 
     return cert;
+}
+
+int fila_vazia(Fila *f){
+    return (f->inicio == NULL) ? 1 : 0;
 }
 
 void libera_fila(Fila *f){
