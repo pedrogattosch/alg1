@@ -5,14 +5,14 @@
 
 #define MAX 101
 
-typedef struct Nodo{
+typedef struct NodoFila{
     Certificado *info;
-    struct Nodo *prox;
-} nodo;
+    struct NodoFila *prox;
+} nodoFila;
 
 typedef struct{
     Certificado *v[MAX];
-    nodo *inicio, *fim;
+    nodoFila *inicio, *fim;
     int tamanho;
 } Fila;
 

@@ -9,7 +9,7 @@ Pilha *cria_pilha(){
 }
 
 void pushPilha(Pilha *p, Certificado *cert){
-    nodo *novo = (nodo *)malloc(sizeof(nodo));
+    nodoPilha *novo = (nodoPilha *)malloc(sizeof(nodoPilha));
     novo->info = cert;
     novo->prox = p->topo;
     p->topo = novo;
@@ -18,7 +18,7 @@ void pushPilha(Pilha *p, Certificado *cert){
 
 Certificado *popPilha(Pilha *p){
     Certificado *cert = p->topo->info;
-    nodo *aux = p->topo->prox;
+    nodoPilha *aux = p->topo->prox;
     free(p->topo);
     p->topo = aux;
     p->tamanho--;

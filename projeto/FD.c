@@ -4,12 +4,13 @@
 Fila *cria_fila(){
     Fila *f = (Fila *)malloc(sizeof(Fila));
     f->inicio = f->fim = NULL;
+    f->tamanho = 0;
 
     return f;
 }
 
 void pushFila(Fila *f, Certificado *cert){
-    nodo *novo = (nodo *)malloc(sizeof(nodo));
+    nodoFila *novo = (nodoFila *)malloc(sizeof(nodoFila));
     novo->info = cert;
     novo->prox = NULL;
     
@@ -25,7 +26,7 @@ void pushFila(Fila *f, Certificado *cert){
 
 Certificado *popFila(Fila *f){
     Certificado *cert = f->inicio->info;
-    nodo *aux = f->inicio->prox;
+    nodoFila *aux = f->inicio->prox;
 
     if (f->fim == f->inicio)
         f->fim = NULL;

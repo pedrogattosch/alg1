@@ -5,16 +5,15 @@
 
 #define MAX 101
 
-typedef struct Nodo{
+typedef struct NodoPilha{
     Certificado *info;
-    struct Nodo *prox;
-} nodo;
+    struct NodoPilha *prox;
+} nodoPilha;
 
 typedef struct{
-    nodo *topo;
+    nodoPilha *topo;
     int tamanho;
 } Pilha;
-
 
 Pilha *cria_pilha();
 void pushPilha(Pilha *p, Certificado *cert);

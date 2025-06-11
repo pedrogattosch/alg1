@@ -4,7 +4,7 @@
 #include <ctype.h>
 
 #include "PE.h"
-#include "FE.h"
+#include "FD.h"
 #include "certificado.h"
 
 #define MAX_CHAR 256
@@ -13,7 +13,17 @@
 Certificado certificados[MAX_CERT];
 int total_certificados = 0;
 
-char *certificado(Pilha *p, char *s){
+void deixaMaiuscula(char *dest, const char *orig) {
+    int i = 0;
+    while(orig[i]){
+        dest[i] = toupper((unsigned char)orig[i]);
+        i++;
+    }
+
+    dest[i] = '\0';
+}
+
+char *empilhaCertificado(Pilha *p, char *s){
     Certificado *cert = malloc(sizeof(Certificado));
 
     cert->horas = 0;
@@ -43,7 +53,7 @@ char *certificado(Pilha *p, char *s){
     return mensagem;
 }
 
-char *departamento(Pilha *p, Fila *f, int recebidos, int repassados){
+char *enviaDepartamento(Pilha *p, Fila *f, int recebidos, int repassados){
     if(recebidos == 0 || pilha_vazia(p)){
         char *mensagem = malloc(MAX_CHAR * sizeof(char));
         snprintf(mensagem, MAX_CHAR, "%d certificados repassados\n", repassados);
@@ -56,22 +66,12 @@ char *departamento(Pilha *p, Fila *f, int recebidos, int repassados){
         repassados++;
     }
 
-    return departamento(p, f, recebidos - 1, repassados);
+    return enviaDepartamento(p, f, recebidos - 1, repassados);
 }
 
-void maiuscula(char *dest, const char *orig) {
-    int i = 0;
-    while(orig[i]){
-        dest[i] = toupper((unsigned char)orig[i]);
-        i++;
-    }
-
-    dest[i] = '\0';
-}
-
-void sistema(char *nome, int horas){
+void acessaSistema(char *nome, int horas){
     char nome_maiuscula[MAX_CHAR];
-    maiuscula(nome_maiuscula, nome);
+    deixaMaiuscula(nome_maiuscula, nome);
 
     for(int i = 0; i < total_certificados; i++) {
         if(strcmp(certificados[i].nome, nome_maiuscula) == 0) {
@@ -85,7 +85,7 @@ void sistema(char *nome, int horas){
     total_certificados++;
 }
 
-char *coordenador(Fila *f, int repassados, int processados){
+char *adicionaSistema(Fila *f, int repassados, int processados){
     if(repassados == 0 || fila_vazia(f)){
         char *mensagem = malloc(MAX_CHAR * sizeof(char));
         snprintf(mensagem, MAX_CHAR, "%d certificados processados\n", processados);
@@ -94,17 +94,17 @@ char *coordenador(Fila *f, int repassados, int processados){
 
     Certificado *cert = popFila(f);
     if(cert != NULL){
-        sistema(cert->nome, cert->horas);
+        acessaSistema(cert->nome, cert->horas);
         processados++;
         free(cert);
     }
 
-    return coordenador(f, repassados - 1, processados);
+    return adicionaSistema(f, repassados - 1, processados);
 }
 
-void valida(char *nome){
+void validaCertificado(char *nome){
     char nome_maiuscula[MAX_CHAR];
-    maiuscula(nome_maiuscula, nome);
+    deixaMaiuscula(nome_maiuscula, nome);
 
     for(int i = 0; i < total_certificados; i++){
         if(strcmp(certificados[i].nome, nome_maiuscula) == 0){
@@ -134,7 +134,7 @@ int main(){
             char s[MAX_CHAR];
             scanf(" %[^\n]", s);
 
-            char *mensagem = certificado(p, s);
+            char *mensagem = empilhaCertificado(p, s);
 
             printf("%s", mensagem);
             free(mensagem);
@@ -142,7 +142,7 @@ int main(){
             int recebidos, repassados = 0;
             scanf("%d", &recebidos);
 
-            char *mensagem = departamento(p, f, recebidos, repassados);
+            char *mensagem = enviaDepartamento(p, f, recebidos, repassados);
 
             printf("%s", mensagem);
             free(mensagem);
@@ -150,14 +150,14 @@ int main(){
             int repassados, processados = 0;
             scanf("%d", &repassados);
 
-            char *mensagem = coordenador(f, repassados, processados);
+            char *mensagem = adicionaSistema(f, repassados, processados);
 
             printf("%s", mensagem);
             free(mensagem);
         } else if(strcmp(comando, "valida") == 0){
              char nome[MAX_CHAR];
             scanf(" %[^\n]", nome);
-            valida(nome);
+            validaCertificado(nome);
         } else if(strcmp(comando, "sistema") == 0){
             for(int i = 0; i < total_certificados; i++){
                 if(certificados[i].horas > 0) {
