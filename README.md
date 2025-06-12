@@ -50,9 +50,10 @@ O programa aceitará comandos interativos via terminal, como:
 ```
 
 ## Comandos suportados
-certificado [nome] [CH]: Empilha certificado com carga horária.
-departamento [k]: Move até k certificados da pilha para a fila.
-coordenador [k]: Processa até k certificados da fila.
-valida [nome]: Valida 60 horas para o aluno, se possível.
-sistema: Exibe todos os alunos e horas registradas.
-F: Encerra a execução.
+
+- certificado [nome] [CH]: Empilha certificado com carga horária.
+- departamento [k]: Move até k certificados da pilha para a fila.
+- coordenador [k]: Processa até k certificados da fila.
+- valida [nome]: Valida 60 horas para o aluno, se possível.
+- sistema: Exibe todos os alunos e horas registradas.
+- F: Encerra a execução.
