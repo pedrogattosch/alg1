@@ -5,7 +5,7 @@ Este projeto, desenvolvido em linguagem C, simula o fluxo de validação de cert
 ## Objetivo
 
 1. Alunos geram certificados com nome e carga horária.
-2 .Os certificados são empilhados na mesa do departamento.
+2. Os certificados são empilhados na mesa do departamento.
 3. O departamento os transfere para a fila de processos da coordenação.
 4. O coordenador processa os certificados e registra as horas no sistema.
 5. Os alunos podem validar 60 horas por disciplina extensionista.
