@@ -60,7 +60,7 @@ O programa aceitará comandos interativos via terminal, como:
 - F: Encerra a execução.
 
 EN:
-# Algorithms and data structures 1 Project
+# Algorithms and data structures 1 project
 
 This project, developed in C language, simulates the validation flow of university extension certificates. Data structures such as stacks and queues, both in their static and dynamic versions, are used to represent the complete process.
 
@@ -97,7 +97,7 @@ For other combinations, replace PE.c and/or FE.c with PD.c and/or FD.c according
 ## Execution
 
 ```bash
-./projeto
+./project
 ```
 
 The program will accept interactive commands via terminal, such as:
